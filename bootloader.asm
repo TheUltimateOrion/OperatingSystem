@@ -1,16 +1,16 @@
 [org 0x7c00]
 
+mov [BOOT_DISK], dl
+
 mov bp, 0x7c00
 mov sp, bp
 
-mov bx, TestString
-call PrintString
+call ReadDisk
 
-PrintString:
-    push ax
-    push bx
+jmp PROGRAM_SPACE
 
-    mov ah, 0x0e
-    .Loop:
-        cmp [bx], byte 0
-        
+%include "print.asm"
+%include "DiskRead.asm"
+
+times 510-($-$$) db 0
+dw 0xaa55
