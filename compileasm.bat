@@ -7,5 +7,4 @@ wsl /usr/local/x86_64elfgcc/bin/x86_64-elf-gcc -Ttext 0x8000 -ffreestanding -mno
 wsl ld -T"link.ld"
 
 copy /b bootloader.bin+Kernel.bin bootloader.flp
-qemu-system-x86_64 -drive format=raw,file=bootloader.flp
 pause
