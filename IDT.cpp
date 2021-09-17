@@ -1,5 +1,6 @@
 #pragma once
 #include "Typedefs.cpp"
+#include "KBScanCodeSet1.cpp"
 struct IDT64 {
     uint_16 offset_low;
     uint_16 selector;
@@ -32,7 +33,10 @@ void InitializeIDT() {
 
 
 extern "C" void isr1_handler() {
-    PrintString(HexToString(inb(0x60)));
+    uint_8 scanCode = inb(0x60);
+    if (scanCode < 0x3A) {
+        PrintChar(KBSet1::ScanCodeLookupTable[scanCode]);
+    }
     outb(0x20, 0x20);
     outb(0xa0, 0x20);
 }
