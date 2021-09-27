@@ -1,20 +1,21 @@
-#include "TextPrint.cpp"
-#include "IDT.cpp"
-
-#include "Keyboard.cpp"
+#include "TextPrint.h"
+#include "IDT.h"
+#include "Keyboard.h"
+#include "MemoryMap.h"
 
 extern "C" void _start() {
     SetCursorPosition(PositionFromCoords(0, 0));
     InitializeIDT();
-
     MainKeyboardHandler = KeyboardHandler;
 
-    PrintString(IntegerToString(-500));
+    MemoryMapEntry** usableMemoryMaps = GetUsableMemoryRegions();
 
-    float testFloat = -672.938f;
-
-    SetCursorPosition(PositionFromCoords(0, 1));
-    PrintString(FloatToString(testFloat, 2));
+    for (uint_8 i = 0; i < UsableMemoryRegionCount; i++)
+    {
+        MemoryMapEntry* memMap = usableMemoryMaps[i];
+        PrintMemoryMap(memMap, CursorPositon);
+    }
+    
 
     return;
 }
