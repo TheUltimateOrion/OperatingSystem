@@ -11,5 +11,10 @@ extern "C" void _start() {
 
     PrintString(IntegerToString(-500));
 
+    float testFloat = -672.938f;
+
+    SetCursorPosition(PositionFromCoords(0, 1));
+    PrintString(FloatToString(testFloat, 2));
+
     return;
 }
