@@ -1,9 +1,15 @@
 #include "TextPrint.cpp"
 #include "IDT.cpp"
-extern const char Test[];
+
+#include "Keyboard.cpp"
 
 extern "C" void _start() {
     SetCursorPosition(PositionFromCoords(0, 0));
     InitializeIDT();
+
+    MainKeyboardHandler = KeyboardHandler;
+
+    PrintString(IntegerToString(-500));
+
     return;
 }
